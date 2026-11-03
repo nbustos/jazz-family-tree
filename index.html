@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Jazz Family Tree — an interactive genealogy of jazz</title>
+  <meta name="description" content="An interactive family tree of jazz: the musicians, bands, styles and scenes from the music's African roots to today.">
+  <meta property="og:title" content="Jazz Family Tree">
+  <meta property="og:description" content="Explore jazz from its African roots to today, one portrait at a time.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-theme="night">
+  <canvas id="stage" aria-label="Interactive jazz family tree. Use the search box to find musicians."></canvas>
+
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="Jazz Family Tree home">
+      <span class="brand-jazz">Jazz</span>
+      <span class="brand-rest">Family&nbsp;Tree</span>
+    </a>
+    <div class="search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="search" type="search" placeholder="Search musicians, bands, styles…" autocomplete="off" spellcheck="false" aria-label="Search">
+      <kbd>/</kbd>
+      <ul id="search-results" role="listbox"></ul>
+    </div>
+    <nav class="tools" aria-label="View options">
+      <button id="btn-lens" title="Magnifying lens (L)"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.8-4.8M8 10.5h5M10.5 8v5"/></svg><span>Lens</span></button>
+      <button id="btn-vintage" title="Vintage portraits — colour blooms under the lens"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><circle cx="12" cy="12.5" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg><span>Vintage</span></button>
+      <button id="btn-theme" title="Night / paper theme"><svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg><span>Theme</span></button>
+      <button id="btn-reset" title="Show the whole tree (R)"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><span>Whole tree</span></button>
+      <button id="btn-about" title="About & sources"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><span>About</span></button>
+    </nav>
+  </header>
+
+  <nav id="era-nav" aria-label="Jump to era"></nav>
+  <div id="filters" role="toolbar" aria-label="Highlight by instrument"></div>
+  <div id="tooltip" role="status"></div>
+
+  <aside id="panel" aria-live="polite">
+    <button class="panel-close" aria-label="Close">×</button>
+    <div class="panel-body"></div>
+  </aside>
+
+  <div id="intro" class="modal open" role="dialog" aria-labelledby="intro-title">
+    <div class="card">
+      <div class="eyebrow">Highlights of the jazz story</div>
+      <h1 id="intro-title"><span class="brand-jazz">Jazz</span> Family Tree</h1>
+      <p>From the drum and the ring shout to the London clubs of today — the musicians, bands, styles and scenes of jazz, arranged as one living family tree. The trunk climbs through the eras; branches are styles and regional scenes; every portrait is a musician.</p>
+      <ul class="howto">
+        <li><b>Hover</b> to magnify the tree under your cursor</li>
+        <li><b>Scroll / pinch</b> to zoom, <b>drag</b> to pan</li>
+        <li><b>Click</b> a portrait for its story and lineage</li>
+        <li><b>Click</b> a plaque for a style, era or root</li>
+      </ul>
+      <button class="primary">Enter the tree</button>
+    </div>
+  </div>
+
+  <div id="about" class="modal" role="dialog" aria-labelledby="about-title">
+    <div class="card wide">
+      <button class="panel-close" data-close aria-label="Close">×</button>
+      <h2 id="about-title">About the Jazz Family Tree</h2>
+      <p>This tree charts <b data-stat="people"></b> musicians and <b data-stat="bands"></b> bands across <b data-stat="branches"></b> branches and <b data-stat="eras"></b> eras. Below ground, the roots trace the African and African American traditions — polyrhythm, call and response, the ring shout, spirituals and work songs — that met European harmony and Caribbean rhythm in New Orleans. Above, each era of the trunk sprouts branches for the styles and regional scenes that grew from it, and lineage lines connect musicians to their mentors, bandleaders and acknowledged influences.</p>
+      <p>The layout is a simplification: musicians appear once, on the branch where they first made their mark, and list the other styles they played. Placement along a branch follows the year an artist first made an impact. Faint green offshoots mark <em>kindred genres</em> — gospel, R&amp;B, soul, funk, hip-hop and others — that share jazz's roots.</p>
+      <h3>How it was researched</h3>
+      <p>Dates, places, key recordings and documented relationships were researched and cross-checked against Wikipedia, Britannica, AllMusic, the Oxford/Grove reference works, NPR, Jazz at Lincoln Center, label archives and published obituaries. Influence links are limited to documented relationships: teachers, bandleaders a musician apprenticed under, and influences the musicians themselves acknowledged. Corrections are welcome — open an issue on GitHub.</p>
+      <h3>Further reading &amp; sources</h3>
+      <ul class="sources">
+        <li><a href="https://guides.loc.gov/jazz-research/beginning-your-research" target="_blank" rel="noopener">Library of Congress — Jazz: A Research Guide</a></li>
+        <li>Barry Kernfeld (ed.), <em>The New Grove Dictionary of Jazz</em>, 2nd ed. (2002)</li>
+        <li>Leonard Feather &amp; Ira Gitler, <em>The Biographical Encyclopedia of Jazz</em> (1999)</li>
+        <li>Gerhard Kubik, <em>Jazz Transatlantic</em> (2017)</li>
+        <li>Ted Gioia, <em>The History of Jazz</em> and <em>The Jazz Standards</em> (2012)</li>
+        <li><a href="https://www.lordisco.com/tjd/" target="_blank" rel="noopener">Tom Lord, The Jazz Discography (TJD Online)</a></li>
+        <li><a href="https://linkedjazz.org/" target="_blank" rel="noopener">Linked Jazz — Pratt Institute</a> (relationships from jazz oral histories)</li>
+        <li><a href="https://www.loc.gov/collections/jazz-photography-of-william-p-gottlieb/about-this-collection/" target="_blank" rel="noopener">William P. Gottlieb jazz photographs</a>, Library of Congress (public domain)</li>
+        <li><a href="https://www.loc.gov/collections/african-american-band-music/about-this-collection/" target="_blank" rel="noopener">African-American Band Music &amp; Recordings, 1883–1923</a>, Library of Congress</li>
+        <li><a href="https://www.loc.gov/collections/ragtime/about-this-collection/" target="_blank" rel="noopener">Ragtime collection</a>, Library of Congress</li>
+      </ul>
+      <h3>Images</h3>
+      <p>Portraits are loaded from Wikimedia Commons via Wikipedia's free-license page images; each musician's panel links to the photo's file page for author and license. Musicians without a free image are shown as monograms.</p>
+      <p class="small">Inspired by the poster <em>Highlights of the Jazz Story in USA</em> and by <a href="https://jazzhistorytree.com" target="_blank" rel="noopener">The Jazz History Tree</a>. Keyboard: <kbd>/</kbd> search · <kbd>L</kbd> lens · <kbd>[</kbd> <kbd>]</kbd> lens size · <kbd>R</kbd> whole tree · <kbd>Esc</kbd> close.</p>
+    </div>
+  </div>
+
+  <noscript><p class="noscript">The Jazz Family Tree needs JavaScript to draw the tree.</p></noscript>
+
+  <script src="data/core.js"></script>
+  <script src="data/artists/01-roots-jazzage.js"></script>
+  <script src="data/artists/02-swing.js"></script>
+  <script src="data/artists/03-bebop-cool.js"></script>
+  <script src="data/artists/04-hardbop-modal.js"></script>
+  <script src="data/artists/05-free-fusion.js"></script>
+  <script src="data/artists/06-global-creative.js"></script>
+  <script src="data/artists/07-neo-downtown.js"></script>
+  <script src="data/artists/08-modern.js"></script>
+  <script src="data/artists/09-today.js"></script>
+  <script src="data/images.js"></script>
+  <script src="data/linkedjazz.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
