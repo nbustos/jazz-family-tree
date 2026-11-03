@@ -52,7 +52,7 @@
     W = window.innerWidth; H = window.innerHeight;
     canvas.width = W * DPR; canvas.height = H * DPR;
     canvas.style.width = W + "px"; canvas.style.height = H + "px";
-    lens.R = Math.max(170, Math.min(340, Math.min(W, H) * 0.32));
+    lens.R = Math.max(42, Math.min(85, Math.min(W, H) * 0.08));   // a quarter of the original loupe
     dirty = true;
   }
 
@@ -67,7 +67,7 @@
   }
 
   // ---------- Fisheye lens ----------
-  const lens = { x: -9999, y: -9999, tx: -9999, ty: -9999, s: 0, ts: 0, R: 260, D: 3.6, enabled: true };
+  const lens = { x: -9999, y: -9999, tx: -9999, ty: -9999, s: 0, ts: 0, R: 65, D: 3.6, enabled: true };
   let fe = { on: false };
   function prepFisheye() {
     const D = lens.D * lens.s;
@@ -895,8 +895,8 @@
     else if (e.key === "r" || e.key === "R") $("btn-reset").click();
     else if (e.key === "+" || e.key === "=") zoomAt(W / 2, H / 2, 1.3);
     else if (e.key === "-") zoomAt(W / 2, H / 2, 1 / 1.3);
-    else if (e.key === "[") { lens.R = Math.max(120, lens.R - 30); dirty = true; }
-    else if (e.key === "]") { lens.R = Math.min(520, lens.R + 30); dirty = true; }
+    else if (e.key === "[") { lens.R = Math.max(30, lens.R - 15); dirty = true; }
+    else if (e.key === "]") { lens.R = Math.min(520, lens.R + 15); dirty = true; }
   });
 
   // Intro card.
