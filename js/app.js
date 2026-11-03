@@ -410,7 +410,7 @@
       ctx.save();
       ctx.strokeStyle = th.link; ctx.lineWidth = 2;
       ctx.globalAlpha = (dim ? 0.3 : 1) * (1 - ph);
-      ctx.beginPath(); ctx.arc(x, y, R + 3 + ph * Math.max(10, R * 0.8), 0, Math.PI * 2); ctx.stroke();
+      ctx.beginPath(); ctx.arc(x, y, R + 3 + ph * Math.max(30, R * 2.4), 0, Math.PI * 2); ctx.stroke();
       ctx.restore();
     }
     // Ring in branch color.
