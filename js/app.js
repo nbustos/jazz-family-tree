@@ -105,6 +105,7 @@
 
   // ---------- State ----------
   let dirty = true;
+  let growing = false;      // instrument-highlight resize still animating
   let hover = null;          // hit object under pointer
   let selected = null;       // node id
   let filter = null;         // instrument family key
@@ -351,10 +352,15 @@
 
     // Portraits: draw magnified ones last.
     const drawList = [];
+    const fam = filter && FAMILIES.find((q) => q.key === filter);
     for (const n of L.nodes) {
       const p = P(n.x, n.y);
       n.sx = p[0]; n.sy = p[1]; n.z = p[2];
-      let R = n.r * k * p[2];
+      // Instrument highlight: matching portraits ease up to twice their size.
+      const target = fam && famOf(n.a, fam) ? 2 : 1;
+      n.grow = n.grow ?? 1;
+      if (Math.abs(target - n.grow) > 0.005) { n.grow += (target - n.grow) * 0.2; growing = true; } else n.grow = target;
+      let R = n.r * k * p[2] * n.grow;
       if (hover && hover.obj === n) R *= 1.12;
       if (selected === n.id) R *= 1.08;
       n.sr = R;
@@ -399,6 +405,14 @@
     }
     const band = a.type === "band";
     const shape = (r) => band ? roundRect(x - r, y - r, 2 * r, 2 * r, r * 0.32) : (ctx.beginPath(), ctx.arc(x, y, r, 0, Math.PI * 2));
+    if (nowPlaying && nowPlaying.has(n.id)) {
+      const ph = (performance.now() % 1600) / 1600;
+      ctx.save();
+      ctx.strokeStyle = th.link; ctx.lineWidth = 2;
+      ctx.globalAlpha = (dim ? 0.3 : 1) * (1 - ph);
+      ctx.beginPath(); ctx.arc(x, y, R + 3 + ph * Math.max(10, R * 0.8), 0, Math.PI * 2); ctx.stroke();
+      ctx.restore();
+    }
     // Ring in branch color.
     const ring = Math.max(1.2, R * 0.09);
     if (R > 6) { ctx.shadowColor = "rgba(0,0,0,.45)"; ctx.shadowBlur = R * 0.35; ctx.shadowOffsetY = R * 0.08; }
@@ -561,8 +575,8 @@
     if (lens.s < 0.01 && lens.ts === 0) lens.s = 0;
     lens.x += (lens.tx - lens.x) * 0.38; lens.y += (lens.ty - lens.y) * 0.38;
     if (Math.abs(lens.s - ls) > 0.002 || Math.abs(lens.x - lx) > 0.3 || Math.abs(lens.y - ly) > 0.3) dirty = true;
-    const focus = selected || (hover && hover.type === "node");
-    if (dirty || focus) { render(t); dirty = false; if (pointer.inside) updateHover(); }
+    const focus = selected || (hover && hover.type === "node") || nowPlaying;
+    if (dirty || focus || growing) { growing = false; render(t); dirty = false; if (pointer.inside) updateHover(); }
     requestAnimationFrame(frame);
   }
   const toWorldFrom = (v) => [(W / 2 - v.x) / v.k, (H / 2 - v.y) / v.k];
@@ -727,6 +741,7 @@
       ${sec("Members", a.members)}
       ${sec("Member of", memberOf.get(a.id))}
       ${sec("Influenced", influenced.get(a.id))}
+      ${analyzed(a.id)}
       ${oral(a.id)}
       ${styles.length ? `<h4>Also on the branches of</h4><div class="chips">${styles.map(branchChip).join("")}</div>` : ""}
       <div class="p-links">
@@ -734,6 +749,12 @@
         ${im && im.file ? `<a class="credit" href="https://commons.wikimedia.org/wiki/File:${encodeURIComponent(im.file)}" target="_blank" rel="noopener">Photo: Wikimedia Commons ↗</a>` : ""}
       </div>`;
     openPanel("artist");
+  }
+
+  function analyzed(id) {
+    const ps = ((window.NOTES && window.NOTES.pieces) || []).filter((p) => (p.artistIds || []).includes(id));
+    if (!ps.length) return "";
+    return `<h4>Analyzed in Notes on Notes</h4><ul class="p-records">${ps.map((p) => `<li><a href="notes.html#${esc(p.id)}" title="Read the analysis">♪</a><span><a class="plain" href="notes.html#${esc(p.id)}">${esc(p.title)}</a> (${p.year})</span></li>`).join("")}</ul>`;
   }
 
   function oral(id) {
@@ -902,7 +923,17 @@
   // Intro card.
   const intro = $("intro");
   if (localStorage.getItem("jft-intro") === "seen") intro.classList.remove("open");
-  intro.querySelector("button").addEventListener("click", () => { intro.classList.remove("open"); localStorage.setItem("jft-intro", "seen"); });
+  intro.querySelectorAll("[data-music]").forEach((b) => b.addEventListener("click", () => {
+    intro.classList.remove("open"); localStorage.setItem("jft-intro", "seen");
+    if (b.dataset.music === "1" && window.JazzPlayer) window.JazzPlayer.play();
+  }));
+
+  // Now playing: pulse the portraits of the musicians on the current record.
+  let nowPlaying = null;
+  window.addEventListener("jft-track", (e) => {
+    nowPlaying = e.detail.playing ? new Set(e.detail.track.artistIds || []) : null;
+    dirty = true;
+  });
 
   // Stats in the about box.
   const people = J.artists.filter((a) => a.type === "person").length;
@@ -924,6 +955,7 @@
   if (qs.get("zoom")) { const [kk, wx, wy] = qs.get("zoom").split(",").map(Number); view.k = kk; view.x = W / 2 - wx * kk; view.y = H / 2 - wy * kk; }
   if (qs.get("lens")) { const [x, y] = qs.get("lens").split(",").map(Number); Object.assign(lens, { x, y, tx: x, ty: y, s: 1, ts: 1 }); }
   if (qs.get("intro") === "0") intro.classList.remove("open");
+  if (qs.get("filter")) setTimeout(() => filters.querySelector(`[data-f="${qs.get("filter")}"]`)?.click(), 50);
   if (THEMES[qs.get("theme")]) { theme = THEMES[qs.get("theme")]; document.body.dataset.theme = qs.get("theme"); }
   window.__jft = { L, view, lens, select, showBranch, showEra };
 })();

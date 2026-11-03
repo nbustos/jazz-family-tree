@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Notes on Notes — how jazz composition changed, and what never did</title>
+  <meta name="description" content="Thirty landmark jazz pieces, three per era, analyzed for form, harmony, rhythm and the balance of written and improvised — and the five throughlines that run from ragtime to today.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600;1,700;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/notes.css">
+  <script>document.documentElement.dataset.theme = localStorage.getItem("jft-theme") || "night";</script>
+</head>
+<body class="notes-page">
+  <header class="topbar notes-topbar">
+    <a class="brand" href="./" aria-label="Back to the Jazz Family Tree">
+      <span class="brand-jazz">Jazz</span>
+      <span class="brand-rest">Family&nbsp;Tree</span>
+    </a>
+    <nav class="tools" aria-label="Page">
+      <a class="tool-link" href="./"><svg viewBox="0 0 24 24"><path d="M12 21V11M12 14 7 10M12 12l5-4M7 7a2 2 0 1 0 0-.1M17 5a2 2 0 1 0 0-.1"/></svg><span>The Tree</span></a>
+      <a class="tool-link on" href="notes.html" aria-current="page"><svg viewBox="0 0 24 24"><path d="M9 18V5l11-2v13"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/></svg><span>Notes on Notes</span></a>
+      <button id="btn-theme" title="Night / paper theme"><svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg><span>Theme</span></button>
+    </nav>
+  </header>
+
+  <nav id="era-index" aria-label="Eras"></nav>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow">A companion to the Jazz Family Tree</div>
+      <h1>Notes on <em>Notes</em></h1>
+      <p class="lede">How jazz composition changed through the ages — and the five threads that never broke. Thirty pieces, three from each era, read closely for their form, harmony, rhythm and the balance between what was written and what was made up on the spot.</p>
+    </section>
+
+    <section class="staff-wrap" aria-label="The five throughlines as a musical staff">
+      <div class="staff-head">
+        <h2>The staff</h2>
+        <p>Each line is a throughline. Each piece is a chord of note-heads, stacked on every line it sounds. Hover to see a piece; click to read it. Click a line's name to follow that thread.</p>
+      </div>
+      <div id="staff"></div>
+    </section>
+
+    <section id="threads" class="threads" aria-label="Throughlines"></section>
+
+    <div id="eras"></div>
+
+    <section class="colophon">
+      <h2>Sources &amp; method</h2>
+      <p>Every finding on this page is drawn from published musical analysis — jazz history textbooks, monographs, journal articles and the composers' own accounts — and each is footnoted to its source on the piece where it appears. Musical facts (keys, forms, bar counts, recording data) were cross-checked against at least two sources; where sources disagree, the text says so. Melodies of works still under copyright are described in words rather than notated. The short “hear it” sketches are synthesized in your browser and illustrate harmony or rhythm only.</p>
+      <div id="bibliography"></div>
+    </section>
+  </main>
+
+  <div id="note-tip" role="status"></div>
+
+  <script src="data/notes/core.js"></script>
+  <script src="data/notes/era-01-02.js"></script>
+  <script src="data/notes/era-03-04.js"></script>
+  <script src="data/notes/era-05-06.js"></script>
+  <script src="data/notes/era-07-08.js"></script>
+  <script src="data/notes/era-09-10.js"></script>
+  <script src="data/notes/throughlines.js"></script>
+  <script src="data/core.js"></script>
+  <script src="data/artists/01-roots-jazzage.js"></script>
+  <script src="data/artists/02-swing.js"></script>
+  <script src="data/artists/03-bebop-cool.js"></script>
+  <script src="data/artists/04-hardbop-modal.js"></script>
+  <script src="data/artists/05-free-fusion.js"></script>
+  <script src="data/artists/06-global-creative.js"></script>
+  <script src="data/artists/07-neo-downtown.js"></script>
+  <script src="data/artists/08-modern.js"></script>
+  <script src="data/artists/09-today.js"></script>
+  <script src="data/playlist.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/synth.js"></script>
+  <script src="js/notes.js"></script>
+</body>
+</html>

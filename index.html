@@ -32,6 +32,7 @@
       <button id="btn-vintage" title="Vintage portraits — colour blooms under the lens"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><circle cx="12" cy="12.5" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg><span>Vintage</span></button>
       <button id="btn-theme" title="Night / paper theme"><svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg><span>Theme</span></button>
       <button id="btn-reset" title="Show the whole tree (R)"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><span>Whole tree</span></button>
+      <a class="tool-link" id="link-notes" href="notes.html" title="Notes on Notes — how jazz composition changed"><svg viewBox="0 0 24 24"><path d="M9 18V5l11-2v13"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/></svg><span>Notes on Notes</span></a>
       <button id="btn-about" title="About & sources"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><span>About</span></button>
     </nav>
   </header>
@@ -56,7 +57,11 @@
         <li><b>Click</b> a portrait for its story and lineage</li>
         <li><b>Click</b> a plaque for a style, era or root</li>
       </ul>
-      <button class="primary">Enter the tree</button>
+      <p class="small">New: <a href="notes.html"><b>Notes on Notes</b></a> — thirty pieces analyzed to show how jazz composition changed, and the five threads that never broke.</p>
+      <div class="intro-actions">
+        <button class="primary" data-music="1">Enter with music ♪</button>
+        <button class="secondary" data-music="0">Enter quietly</button>
+      </div>
     </div>
   </div>
 
@@ -83,7 +88,7 @@
       </ul>
       <h3>Images</h3>
       <p>Portraits are loaded from Wikimedia Commons via Wikipedia's free-license page images; each musician's panel links to the photo's file page for author and license. Musicians without a free image are shown as monograms.</p>
-      <p class="small">Inspired by the poster <em>Highlights of the Jazz Story in USA</em> and by <a href="https://jazzhistorytree.com" target="_blank" rel="noopener">The Jazz History Tree</a>. Keyboard: <kbd>/</kbd> search · <kbd>L</kbd> lens · <kbd>[</kbd> <kbd>]</kbd> lens size · <kbd>R</kbd> whole tree · <kbd>Esc</kbd> close.</p>
+      <p class="small">Inspired by the poster <em>Highlights of the Jazz Story in USA</em> and by <a href="https://jazzhistorytree.com" target="_blank" rel="noopener">The Jazz History Tree</a>. Keyboard: <kbd>Space</kbd> play/pause music · <kbd>/</kbd> search · <kbd>L</kbd> lens · <kbd>[</kbd> <kbd>]</kbd> lens size · <kbd>R</kbd> whole tree · <kbd>Esc</kbd> close.</p>
     </div>
   </div>
 
@@ -101,6 +106,14 @@
   <script src="data/artists/09-today.js"></script>
   <script src="data/images.js"></script>
   <script src="data/linkedjazz.js"></script>
+  <script src="data/notes/core.js"></script>
+  <script src="data/notes/era-01-02.js"></script>
+  <script src="data/notes/era-03-04.js"></script>
+  <script src="data/notes/era-05-06.js"></script>
+  <script src="data/notes/era-07-08.js"></script>
+  <script src="data/notes/era-09-10.js"></script>
+  <script src="data/playlist.js"></script>
+  <script src="js/player.js"></script>
   <script src="js/layout.js"></script>
   <script src="js/app.js"></script>
 </body>
