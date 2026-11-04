@@ -743,6 +743,7 @@
       ${sec("Member of", memberOf.get(a.id))}
       ${sec("Influenced", influenced.get(a.id))}
       ${analyzed(a.id)}
+      ${scenes(a.id)}
       ${oral(a.id)}
       ${styles.length ? `<h4>Also on the branches of</h4><div class="chips">${styles.map(branchChip).join("")}</div>` : ""}
       <div class="p-links">
@@ -756,6 +757,14 @@
     const ps = ((window.NOTES && window.NOTES.pieces) || []).filter((p) => (p.artistIds || []).includes(id));
     if (!ps.length) return "";
     return `<h4>Analyzed in Notes on Notes</h4><ul class="p-records">${ps.map((p) => `<li><a href="notes.html#${esc(p.id)}" title="Read the analysis">♪</a><span><a class="plain" href="notes.html#${esc(p.id)}">${esc(p.title)}</a> (${p.year})</span></li>`).join("")}</ul>`;
+  }
+
+  // Labels and venues on the Labels & Locals page that name this artist.
+  function scenes(id) {
+    const e = (window.JAZZ_SCENES || {})[id];
+    if (!e || (!e.l.length && !e.c.length)) return "";
+    const link = (pre, [k, name], cls) => `<a class="scene-chip ${cls}" href="labels.html#${pre}-${esc(k)}"><i></i>${esc(name)}</a>`;
+    return `<h4>Labels &amp; Locals</h4><div class="scene-links">${e.l.map((x) => link("l", x, "lab")).join("")}${e.c.map((x) => link("c", x, "club")).join("")}</div>`;
   }
 
   function oral(id) {

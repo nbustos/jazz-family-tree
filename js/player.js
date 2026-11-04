@@ -3,7 +3,7 @@
    Fires a "jft-track" window event with { track, playing } so pages can react (e.g. highlight the artist). */
 (function (g) {
   const LIST = g.JAZZ_PLAYLIST || [];
-  if (!LIST.length) { g.JazzPlayer = { pause() {}, current: () => null, playing: () => false }; return; }
+  if (!LIST.length) { g.JazzPlayer = { pause() {}, playIndex() {}, current: () => null, index: () => -1, playing: () => false }; return; }
 
   const KEY = "jft-player";
   const saved = (() => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } })();
@@ -143,5 +143,7 @@
   // Resume if the visitor had music on when they left the previous page (browsers may still block until a click).
   if (saved.playing) play();
 
-  g.JazzPlayer = { play, pause, toggle, next, prev, current: () => LIST[idx], playing: () => !audio.paused, el };
+  // Play a given track now (or pause it if it is already the one playing).
+  const playIndex = (i) => { if (i === idx && !audio.paused) { pause(); return; } if (i !== idx) load(i); play(); };
+  g.JazzPlayer = { play, pause, toggle, next, prev, playIndex, current: () => LIST[idx], index: () => idx, playing: () => !audio.paused, el };
 })(window);

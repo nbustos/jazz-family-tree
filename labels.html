@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Labels &amp; Locals — the record labels and clubs that shaped jazz</title>
+  <meta name="description" content="The record labels and the clubs, ballrooms and lofts around the world that shaped the history of jazz: who owned them, who played and recorded there, and what they did to the music.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600;1,700;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/notes.css">
+  <link rel="stylesheet" href="css/labels.css">
+</head>
+<body class="notes-page labels-page">
+  <header class="topbar notes-topbar">
+    <a class="brand" href="./" aria-label="Back to the Jazz Family Tree">
+      <span class="brand-jazz">Jazz</span>
+      <span class="brand-rest">Family&nbsp;Tree</span>
+    </a>
+    <nav class="tools" aria-label="Page">
+      <a class="tool-link" href="./"><svg viewBox="0 0 24 24"><path d="M12 21V11M12 14 7 10M12 12l5-4M7 7a2 2 0 1 0 0-.1M17 5a2 2 0 1 0 0-.1"/></svg><span>The Tree</span></a>
+      <a class="tool-link" href="roots.html"><svg viewBox="0 0 24 24"><path d="M12 3v8M12 11c-3 0-5 2-6 6M12 11c3 0 5 2 6 6M12 11v10M8 21c1-2 2-3 4-3s3 1 4 3"/></svg><span>Deep Roots</span></a>
+      <a class="tool-link" href="notes.html"><svg viewBox="0 0 24 24"><path d="M9 18V5l11-2v13"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/></svg><span>Notes on Notes</span></a>
+      <a class="tool-link" href="voices.html"><svg viewBox="0 0 24 24"><path d="M3 12h2M7 8v8M11 5v14M15 9v6M19 7v10"/></svg><span>Conjoining Voices</span></a>
+      <a class="tool-link on" href="labels.html" aria-current="page"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2"/><path d="M12 12h.01"/></svg><span>Labels &amp; Locals</span></a>
+      <button id="btn-theme" title="Night / paper theme"><svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg><span>Theme</span></button>
+    </nav>
+  </header>
+
+  <nav id="era-index" aria-label="Sections"></nav>
+
+  <main class="labels-main">
+    <section class="hero">
+      <div class="eyebrow">The business and the rooms of the Jazz Family Tree</div>
+      <h1>Labels <em>&amp;</em> Locals</h1>
+      <p class="lede">Jazz was made on bandstands and kept on records. This page follows both: the record companies, from Victor’s first “jass” disc to today’s musician-run labels, and the clubs, ballrooms, halls and lofts where the music was played, learned and argued over. Who owned them, who was paid, who was let in, and what each did to the sound.</p>
+    </section>
+
+    <section class="atlas" id="atlas" aria-label="Map of labels and clubs">
+      <div class="atlas-head">
+        <div>
+          <h2>The atlas</h2>
+          <p class="map-intro">Every club and label on this page, placed in its city. Drag the year to watch scenes open and close, or press play to run the century.</p>
+        </div>
+        <div class="views" role="group" aria-label="Map view">
+          <button data-view="world" class="on">World</button>
+          <button data-view="america">North America</button>
+          <button data-view="europe">Europe</button>
+        </div>
+      </div>
+      <div class="atlas-body">
+        <div id="world-map"></div>
+        <aside class="year-panel">
+          <div class="year-big" id="year-big">All years</div>
+          <div class="year-counts" id="year-counts"></div>
+          <div class="map-legend" id="map-legend"></div>
+          <h3 id="ticker-head">Moments</h3>
+          <ol class="ticker" id="ticker"></ol>
+        </aside>
+      </div>
+      <div class="scrubber">
+        <button id="year-play" aria-label="Play through the years"><span>▶</span></button>
+        <input id="year" type="range" min="1895" max="2027" step="1" value="2027" aria-label="Year">
+        <div class="scrub-axis" id="scrub-axis" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section class="lsec" id="lifelines-sec">
+      <div class="part-head"><span>Part one</span><h2>Label lifelines</h2></div>
+      <p class="sec-lede">Each bar is a label’s working life, from its first release to its last (an arrowhead means it is still issuing records in 2026). Dots are landmark records; hover them. Color shows who owned the label.</p>
+      <div class="filters-row" id="kind-filter" role="group" aria-label="Filter by ownership"></div>
+      <div id="lifelines"></div>
+    </section>
+
+    <section class="lsec" id="labels-sec">
+      <div class="part-head"><span>Part two</span><h2>The labels</h2></div>
+      <div id="labels"></div>
+    </section>
+
+    <section class="lsec" id="business-sec">
+      <div class="part-head"><span>Part three</span><h2>The business of records</h2></div>
+      <div id="essays-business"></div>
+    </section>
+
+    <section class="lsec" id="live-sec">
+      <div class="part-head"><span>Part four</span><h2>Live at…</h2></div>
+      <p class="sec-lede">Where the two halves of this page meet: records made on the bandstand, with the room’s noise in them. Each curve joins a venue to the label that issued a recording made there. Hover a curve for the record, or a name to see all of its links.</p>
+      <div id="bridge"></div>
+    </section>
+
+    <section class="lsec" id="locals-sec">
+      <div class="part-head"><span>Part five</span><h2>The locals</h2></div>
+      <p class="sec-lede">City by city, the rooms where jazz was played. Each city opens with a timeline of its venues on this page.</p>
+      <div class="city-nav" id="city-nav"></div>
+      <div id="cities"></div>
+    </section>
+
+    <section class="lsec" id="rooms-sec">
+      <div class="part-head"><span>Part six</span><h2>The rooms and the world</h2></div>
+      <div id="essays-rooms"></div>
+    </section>
+
+    <section class="lsec" id="today-sec">
+      <div id="essays-today"></div>
+    </section>
+
+    <section class="colophon">
+      <h2>Sources &amp; method</h2>
+      <p>Each label, venue, city and essay was researched from published histories, discographies, oral histories, obituaries and archival reporting, cross-checked against a second source where one exists. Footnote numbers link to the sources for that entry. Where accounts disagree about a date or a “first”, the text says so. Years are approximate where marked “c.”; a venue’s timeline bar runs from its opening to its closing as a jazz room, with gaps where it closed and reopened. Photographs are from Wikimedia Commons under public-domain or Creative Commons licenses and are credited beneath each image. Label logos and album covers are not shown, because they are not freely licensed. The world map is drawn from Natural Earth (public domain) in the Equal Earth projection. The 78s you can play are United States recordings published before 1926 and now in the public domain.</p>
+      <div id="bibliography"></div>
+    </section>
+  </main>
+
+  <div id="note-tip" role="status"></div>
+
+  <script src="data/core.js"></script>
+  <script src="data/artists/01-roots-jazzage.js"></script>
+  <script src="data/artists/02-swing.js"></script>
+  <script src="data/artists/03-bebop-cool.js"></script>
+  <script src="data/artists/04-hardbop-modal.js"></script>
+  <script src="data/artists/05-free-fusion.js"></script>
+  <script src="data/artists/06-global-creative.js"></script>
+  <script src="data/artists/07-neo-downtown.js"></script>
+  <script src="data/artists/08-modern.js"></script>
+  <script src="data/artists/09-today.js"></script>
+  <script src="data/images.js"></script>
+  <script src="data/notes/core.js"></script>
+  <script src="data/notes/era-01-02.js"></script>
+  <script src="data/notes/era-03-04.js"></script>
+  <script src="data/notes/era-05-06.js"></script>
+  <script src="data/notes/era-07-08.js"></script>
+  <script src="data/notes/era-09-10.js"></script>
+  <script src="data/labels/core.js"></script>
+  <script src="data/labels/labels-78-era.js"></script>
+  <script src="data/labels/labels-us.js"></script>
+  <script src="data/labels/labels-europe.js"></script>
+  <script src="data/labels/labels-world-new.js"></script>
+  <script src="data/labels/clubs-new-york.js"></script>
+  <script src="data/labels/clubs-us.js"></script>
+  <script src="data/labels/clubs-world.js"></script>
+  <script src="data/labels/world-map.js"></script>
+  <script src="data/playlist.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/labels.js"></script>
+</body>
+</html>
