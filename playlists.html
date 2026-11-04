@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Playlists — a listening list for every era of jazz</title>
+  <meta name="description" content="A playlist for each era of the Jazz Family Tree, from the African roots of jazz to today, with every track linked on YouTube, Spotify and Apple Music.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600;1,700;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/notes.css">
+  <link rel="stylesheet" href="css/labels.css">
+  <link rel="stylesheet" href="css/playlists.css">
+</head>
+<body class="notes-page labels-page playlists-page" data-svc="youtube">
+  <header class="topbar notes-topbar">
+    <a class="brand" href="./" aria-label="Back to the Jazz Family Tree">
+      <span class="brand-jazz">Jazz</span>
+      <span class="brand-rest">Family&nbsp;Tree</span>
+    </a>
+    <nav class="tools" aria-label="Page">
+      <a class="tool-link" href="./"><svg viewBox="0 0 24 24"><path d="M12 21V11M12 14 7 10M12 12l5-4M7 7a2 2 0 1 0 0-.1M17 5a2 2 0 1 0 0-.1"/></svg><span>The Tree</span></a>
+      <a class="tool-link" href="roots.html"><svg viewBox="0 0 24 24"><path d="M12 3v8M12 11c-3 0-5 2-6 6M12 11c3 0 5 2 6 6M12 11v10M8 21c1-2 2-3 4-3s3 1 4 3"/></svg><span>Deep Roots</span></a>
+      <a class="tool-link" href="notes.html"><svg viewBox="0 0 24 24"><path d="M9 18V5l11-2v13"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/></svg><span>Notes on Notes</span></a>
+      <a class="tool-link" href="voices.html"><svg viewBox="0 0 24 24"><path d="M3 12h2M7 8v8M11 5v14M15 9v6M19 7v10"/></svg><span>Conjoining Voices</span></a>
+      <a class="tool-link" href="labels.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2"/><path d="M12 12h.01"/></svg><span>Labels &amp; Locals</span></a>
+      <a class="tool-link on" href="playlists.html" aria-current="page"><svg viewBox="0 0 24 24"><path d="M3 6h12M3 11h12M3 16h7"/><path d="M17 18V9l4-1.5"/><circle cx="15" cy="18" r="2"/></svg><span>Playlists</span></a>
+      <button id="btn-theme" title="Night / paper theme"><svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg><span>Theme</span></button>
+    </nav>
+  </header>
+
+  <nav id="era-index" aria-label="Playlists"></nav>
+
+  <main class="labels-main playlists-main">
+    <section class="hero">
+      <div class="eyebrow">Listen along with the Jazz Family Tree</div>
+      <h1>Play<em>lists</em></h1>
+      <p class="lede">A listening list for every era on the tree, beginning before it with the African and diaspora music traced in Deep Roots. Each playlist appears three times, once for each streaming service, so you can listen wherever you already do. Track lists are the same in every column; only the links change.</p>
+      <div class="ep-stats" id="ep-stats"></div>
+      <div class="svc-switch" id="svc-switch" role="group" aria-label="Streaming service"></div>
+    </section>
+
+    <div id="playlists"></div>
+
+    <section class="colophon">
+      <h2>About these lists</h2>
+      <p>The tracks were chosen to give the sound of each era and its main branches on the tree: landmark records, the people the tree follows, and a few surprises. Years are when the track was recorded. Where the artist is on the tree, the liner notes link to them.</p>
+      <p><b>How the links work.</b> Apple Music links go straight to the track when Apple’s public catalog search found the original recording: the title and artist agree, and the matches were checked by hand to weed out later re-recordings, live versions, edits and alternate takes. Where Apple only has another version, the link opens a search instead. YouTube and Spotify links open a search for the title and artist on that service, since neither offers a catalog search without signing in, and versions of old records come and go there. A magnifier marks a search link; an arrow (↗) marks a direct one.</p>
+      <p><b>Making your own copy.</b> “Copy list” puts the playlist on your clipboard as plain “Title — Artist” lines, the format that playlist-transfer tools such as Soundiiz and TuneMyMusic accept for building a real playlist in your account. Recordings made in the United States before 1926, like many in the first two lists, are in the public domain; several also play on this site’s own player, on the tree and on Labels &amp; Locals.</p>
+    </section>
+  </main>
+
+  <div id="note-tip" role="status"></div>
+
+  <script src="data/core.js"></script>
+  <script src="data/artists/01-roots-jazzage.js"></script>
+  <script src="data/artists/02-swing.js"></script>
+  <script src="data/artists/03-bebop-cool.js"></script>
+  <script src="data/artists/04-hardbop-modal.js"></script>
+  <script src="data/artists/05-free-fusion.js"></script>
+  <script src="data/artists/06-global-creative.js"></script>
+  <script src="data/artists/07-neo-downtown.js"></script>
+  <script src="data/artists/08-modern.js"></script>
+  <script src="data/artists/09-today.js"></script>
+  <script src="data/images.js"></script>
+  <script src="data/playlists.js"></script>
+  <script src="data/playlists-apple.js"></script>
+  <script src="js/playlists.js"></script>
+</body>
+</html>

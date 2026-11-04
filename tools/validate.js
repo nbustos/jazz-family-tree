@@ -67,5 +67,26 @@ for (const a of JAZZ.artists) {
 }
 for (const b of Object.keys(JAZZ.branchInfo)) if (!branchIds.has(b)) err(`branchInfo for unknown branch ${b}`);
 
+// Playlists page: every track needs title/artist/note, a year or `when`, and known artist and branch ids.
+const plFile = path.join(root, "data/playlists.js");
+if (fs.existsSync(plFile)) {
+  ctx.window = ctx;
+  vm.runInContext(fs.readFileSync(plFile, "utf8"), ctx, { filename: "playlists.js" });
+  const eraIds = new Set(JAZZ.eras.map((e) => e.id));
+  for (const p of ctx.PLAYLISTS || []) {
+    if (p.era && !eraIds.has(p.era)) err(`playlist ${p.id}: unknown era "${p.era}"`);
+    if (!p.intro || !(p.tracks || []).length) err(`playlist ${p.id}: needs intro and tracks`);
+    const seenT = new Set();
+    for (const t of p.tracks || []) {
+      const w = `playlist ${p.id} "${t.title}"`;
+      if (!t.title || !t.artist || !t.note) err(`${w}: needs title, artist and note`);
+      if (!(Number.isInteger(t.year) && t.year > 1840 && t.year <= THIS_YEAR) && !t.when) err(`${w}: needs a year or when`);
+      if (t.branch && !branchIds.has(t.branch)) err(`${w}: unknown branch "${t.branch}"`);
+      for (const id of t.artistIds || []) if (!known.has(id)) err(`${w}: unknown artist id "${id}"`);
+      if (seenT.has(t.artist + "|" + t.title)) err(`${w}: duplicate track`); seenT.add(t.artist + "|" + t.title);
+    }
+  }
+}
+
 console.log(`\n${JAZZ.artists.length} artists from ${files.length} file(s): ${errors} error(s), ${warnings} warning(s)`);
 process.exit(errors ? 1 : 0);

@@ -166,3 +166,5 @@ a.fn:hover { background: var(--accent); color: #1a120b; }
   .bars { grid-template-columns: repeat(2, 1fr); }
   .staff-wrap { padding: 18px 12px 10px; overflow-x: auto; }
 }
+/* With six companion links the page topbar can outgrow a phone screen: let the links scroll sideways. */
+@media (max-width: 640px) { .notes-topbar .tools { overflow-x: auto; min-width: 0; scrollbar-width: none; } .notes-topbar .tools > * { flex: none; } }

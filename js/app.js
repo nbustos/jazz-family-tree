@@ -959,6 +959,7 @@
   if (document.fonts) document.fonts.ready.then(() => (dirty = true));
   const deep = decodeURIComponent(location.hash.slice(1));
   if (deep && nodeById.has(deep)) setTimeout(() => select(deep, true), 300);
+  else if (deep.startsWith("era-") && eraById[deep.slice(4)]) setTimeout(() => showEra(deep.slice(4)), 300);
   requestAnimationFrame(frame);
 
   // Debug/screenshot hook: ?lens=x,y places the lens; ?zoom=k,wx,wy sets the view.

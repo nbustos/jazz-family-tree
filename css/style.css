@@ -345,7 +345,9 @@ body.notes-page #player { left: 18px; }
 .secondary:hover { color: var(--ink); background: var(--chip-hover); }
 
 /* ---------- Companion page links (bottom right) ---------- */
-#companions { position: fixed; right: 18px; bottom: 84px; z-index: 6; display: flex; flex-direction: column; gap: 6px; transition: opacity .3s; }
+#companions { position: fixed; right: 18px; bottom: 84px; z-index: 6; display: grid; grid-template-columns: repeat(2, auto); gap: 6px; transition: opacity .3s; }
+#companions .c-tx em { display: none; }
+@media (min-height: 1040px) { #companions { grid-template-columns: auto; } #companions .c-tx em { display: block; } }
 .companion {
   display: flex; align-items: center; gap: 10px; padding: 7px 12px 7px 7px; border-radius: 14px; text-decoration: none; color: var(--ink);
   background: var(--glass); border: 1px solid var(--line); backdrop-filter: blur(10px); box-shadow: var(--shadow);
@@ -360,7 +362,7 @@ body.notes-page #player { left: 18px; }
 .c-go { color: var(--ink-3); font-size: 18px; margin-left: 4px; transition: transform .25s var(--ease), color .25s; }
 .companion:hover .c-go { transform: translateX(3px); color: var(--accent); }
 body.panel-open #companions { opacity: 0; pointer-events: none; }
-@media (max-width: 1100px) { #companions { bottom: 140px; } .c-tx em { display: none; } }
+@media (max-width: 1100px) { #companions { bottom: 140px; } #companions .c-tx em { display: none; } }
 @media (max-width: 600px) { #companions { display: none; } }
 .deep-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; padding: 9px 16px; border-radius: 999px; background: var(--accent); color: #1a120b; font-weight: 600; font-size: 13.5px; text-decoration: none; }
 .deep-link:hover { filter: brightness(1.08); }
