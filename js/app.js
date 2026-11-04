@@ -692,7 +692,8 @@
     if (h.type === "node") select(h.obj.id);
     else if (h.type === "branch") showBranch(h.obj.id, false);
     else if (h.type === "era") showEra(h.obj.id, false);
-    else if (h.type === "root") showText(h.obj.name, "Roots of jazz", h.obj.text);
+    else if (h.type === "root") showText(h.obj.name, h.obj.layer === 0 ? "Roots in Africa" : "Roots of jazz", h.obj.text,
+      h.obj.deep ? `roots.html#${h.obj.deep}` : null, h.obj.layer === 0 ? "Read the deep dive" : "Read about the crossing");
     else if (h.type === "kin") showText(h.obj.name, `Kindred genre · ${h.obj.year}s`, h.obj.text);
   }
 
@@ -800,9 +801,10 @@
     if (fly) flyToWorld(0, (e.y0 + e.y1) / 2, Math.max(minK * 1.6, Math.min(0.42, (H - 140) / e.bandH)));
   }
 
-  function showText(title, kicker, text) {
+  function showText(title, kicker, text, href, linkText) {
     selected = null; relatedSet = null; dirty = true;
-    panelBody.innerHTML = `<div class="p-kicker">${esc(kicker)}</div><h2>${esc(title)}</h2><p class="p-bio">${esc(text)}</p>`;
+    panelBody.innerHTML = `<div class="p-kicker">${esc(kicker)}</div><h2>${esc(title)}</h2><p class="p-bio">${esc(text)}</p>`
+      + (href ? `<a class="deep-link" href="${esc(href)}">${esc(linkText || "Read more")} →</a>` : "");
     openPanel("text");
   }
 

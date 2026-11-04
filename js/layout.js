@@ -177,8 +177,8 @@
       const [layer, side] = slot.split(":").map(Number);
       const L = ROOT_LAYERS.find((l) => l.id === layer);
       list.forEach((r, i) => {
-        const tipX = side * (layer === 0 ? 300 + i * 360 : 330 + i * 420 + (2 - layer) * 40);
-        const tipY = lerp(L.y0, L.y1, 0.55) + (i % 2 ? -40 : 30);
+        const tipX = side * (layer === 0 ? 240 + i * 290 : 330 + i * 420 + (2 - layer) * 40);
+        const tipY = lerp(L.y0, L.y1, 0.55) + (layer === 0 ? [-70, 40, -20, 80, -55, 20][i % 6] : i % 2 ? -40 : 30);
         const start = { x: side * (TRUNK_BASE * (layer === 0 ? 0.25 : 0.7)), y: 20 };
         const c1 = { x: side * Math.abs(tipX) * 0.15, y: lerp(start.y, tipY, 0.7) };
         const c2 = { x: tipX * 0.75, y: tipY - 10 };
@@ -190,7 +190,7 @@
             y: u * u * u * start.y + 3 * u * u * t * c1.y + 3 * u * t * t * c2.y + t * t * t * tipY,
           });
         }
-        const w0 = layer === 0 ? 46 : layer === 1 ? 30 : 20;
+        const w0 = layer === 0 ? 30 : layer === 1 ? 26 : 20;
         const widths = pts.map((_, k) => lerp(w0, 3, Math.pow(k / 22, 0.7)));
         // A few rootlets.
         const lets = [];
